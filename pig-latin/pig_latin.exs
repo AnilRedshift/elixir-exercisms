@@ -14,15 +14,10 @@ defmodule PigLatin do
   Some groups are treated like vowels, including "yt" and "xr".
   """
   @spec translate(phrase :: String.t()) :: String.t()
-  def translate(phrase) when is_binary(phrase) do
-    phrase
-    |> String.to_charlist()
-    |> translate()
-    |> List.to_string()
+  def translate(phrase) do
+    case Regex.run(~r/^[b-df-hj-np-tv-z]*/i, phrase) do
+      [prefix] -> String.replace_prefix(phrase, prefix, "") <> prefix <> "ay"
+      _ -> phrase <> "ay"
+    end
   end
-  def translate([]), do: []
-  def translate([first | _] = word) when first in [?a, ?A, ?e, ?E, ?i, ?I, ?o, ?O, ?u, ?U] do
-    word ++ 'ay'
-  end
-  def translate([first | rest]), do: rest ++ [first ] ++ 'ay'
 end
