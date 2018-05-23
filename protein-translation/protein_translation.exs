@@ -9,6 +9,7 @@ defmodule ProteinTranslation do
       |> Enum.chunk_every(3)
       |> Enum.map(&List.to_string/1)
       |> Enum.map(&of_codon/1)
+      |> Enum.take_while(&(&1 != {:ok, "STOP"}))
       |> Enum.unzip
     {:ok, codons}
 
