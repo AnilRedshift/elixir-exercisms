@@ -21,7 +21,8 @@ defmodule PigLatin do
     |> List.to_string()
   end
   def translate([]), do: []
-  def translate([first | rest]) when first in [?a, ?A, ?e, ?E, ?i, ?I, ?o, ?O, ?u, ?U] do
-    [ first | rest ] ++ 'ay'
+  def translate([first | _] = word) when first in [?a, ?A, ?e, ?E, ?i, ?I, ?o, ?O, ?u, ?U] do
+    word ++ 'ay'
   end
+  def translate([first | rest]), do: rest ++ [first ] ++ 'ay'
 end
