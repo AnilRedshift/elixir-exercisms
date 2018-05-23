@@ -114,7 +114,6 @@ defmodule PigLatinTest do
   end
 
   describe "phrases are translated" do
-    @tag :pending
     test "a whole phrase" do
       assert PigLatin.translate("quick fast run") == "ickquay astfay unray"
     end

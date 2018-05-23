@@ -18,6 +18,13 @@ defmodule PigLatin do
   @re Regex.compile("^(?:#{@consonant}?qu)|#{@consonant}*", "i") |> elem(1)
   @spec translate(phrase :: String.t()) :: String.t()
   def translate(phrase) do
+    phrase
+    |> String.split()
+    |> Enum.map(&translate_word(&1))
+    |> Enum.join(" ")
+  end
+
+  defp translate_word(phrase) do
     if (String.match?(phrase, @xy_re)), do: translate_xy(phrase), else: translate_normal(phrase)
   end
 
