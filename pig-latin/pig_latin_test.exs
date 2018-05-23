@@ -82,17 +82,14 @@ defmodule PigLatinTest do
       assert PigLatin.translate("square") == "aresquay"
     end
 
-    @tag :pending
     test "word beginning with th" do
       assert PigLatin.translate("therapy") == "erapythay"
     end
 
-    @tag :pending
     test "word beginning with thr" do
       assert PigLatin.translate("thrush") == "ushthray"
     end
 
-    @tag :pending
     test "word beginning with sch" do
       assert PigLatin.translate("school") == "oolschay"
     end
