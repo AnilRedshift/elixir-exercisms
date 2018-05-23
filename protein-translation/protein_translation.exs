@@ -4,15 +4,18 @@ defmodule ProteinTranslation do
   """
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna) do
-    {results, codons} = rna
+    codons = rna
       |> String.to_charlist
       |> Enum.chunk_every(3)
       |> Enum.map(&List.to_string/1)
       |> Enum.map(&of_codon/1)
       |> Enum.take_while(&(&1 != {:ok, "STOP"}))
-      |> Enum.unzip
-    {:ok, codons}
 
+    if (Enum.all?(codons, &(match?({:ok, _}, &1)))) do
+      {:ok, Enum.unzip(codons) |> elem(1)}
+    else
+      {:error, "invalid RNA"}
+    end
   end
 
   @doc """
