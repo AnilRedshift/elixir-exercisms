@@ -59,5 +59,10 @@ defmodule ProteinTranslation do
     "UGA" => "STOP",
   }
   @spec of_codon(String.t()) :: {atom, String.t()}
-  def of_codon(codon), do: Map.fetch(@codons, codon)
+  def of_codon(codon) do
+    case Map.fetch(@codons, codon) do
+      {:ok, val} -> {:ok, val}
+      :error -> {:error, "invalid codon"}
+    end
+  end
 end
