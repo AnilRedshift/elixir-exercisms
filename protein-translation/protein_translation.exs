@@ -4,6 +4,14 @@ defmodule ProteinTranslation do
   """
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna) do
+    {results, codons} = rna
+      |> String.to_charlist
+      |> Enum.chunk_every(3)
+      |> Enum.map(&List.to_string/1)
+      |> Enum.map(&of_codon/1)
+      |> Enum.unzip
+    {:ok, codons}
+
   end
 
   @doc """
