@@ -13,9 +13,11 @@ defmodule PigLatin do
 
   Some groups are treated like vowels, including "yt" and "xr".
   """
+  @consonant "[b-df-hj-np-tv-z]"
+  @re Regex.compile("^(?:#{@consonant}?qu)|#{@consonant}*", "i") |> elem(1)
   @spec translate(phrase :: String.t()) :: String.t()
   def translate(phrase) do
-    case Regex.run(~r/^[b-df-hj-np-tv-z]*/i, phrase) do
+    case Regex.run(@re, phrase) do
       [prefix] -> String.replace_prefix(phrase, prefix, "") <> prefix <> "ay"
       _ -> phrase <> "ay"
     end
