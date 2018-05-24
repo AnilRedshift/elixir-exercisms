@@ -27,7 +27,6 @@ defmodule TwelveDaysTest do
   end
 
   describe "verses" do
-    @tag :pending
     test "1-3" do
       assert TwelveDays.verses(1, 3) ==
                """
@@ -38,7 +37,6 @@ defmodule TwelveDaysTest do
                |> String.trim()
     end
 
-    @tag :pending
     test "4-6" do
       assert TwelveDays.verses(4, 6) ==
                """
@@ -49,7 +47,6 @@ defmodule TwelveDaysTest do
                |> String.trim()
     end
 
-    @tag :pending
     test "1-12" do
       assert TwelveDays.verses(1, 12) ==
                """
@@ -71,7 +68,6 @@ defmodule TwelveDaysTest do
   end
 
   describe "sing" do
-    @tag :pending
     test "all 12 verses" do
       assert TwelveDays.sing() ==
                """

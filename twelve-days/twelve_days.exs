@@ -11,7 +11,7 @@ defmodule TwelveDays do
     {"fifth", "five Gold Rings"},
     {"sixth", "six Geese-a-Laying"},
     {"seventh", "seven Swans-a-Swimming"},
-    {"eigth", "eight Maids-a-Milking"},
+    {"eighth", "eight Maids-a-Milking"},
     {"ninth", "nine Ladies Dancing"},
     {"tenth", "ten Lords-a-Leaping"},
     {"eleventh", "eleven Pipers Piping"},
@@ -38,12 +38,13 @@ defmodule TwelveDays do
   """
   @spec verses(starting_verse :: integer, ending_verse :: integer) :: String.t()
   def verses(starting_verse, ending_verse) do
+    v = for n <- starting_verse..ending_verse, into: "", do: verse(n) <> "\n"
+    String.trim(v, "\n")
   end
 
   @doc """
   Sing all 12 verses, in order, one verse per line.
   """
   @spec sing() :: String.t()
-  def sing do
-  end
+  def sing, do: TwelveDays.verses(1, 12)
 end
