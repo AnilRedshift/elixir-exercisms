@@ -3,40 +3,34 @@ defmodule TwelveDays do
   Given a `number`, return the song's verse for that specific day, including
   all gifts for previous days in the same line.
   """
-
-  @verses ~s"""
-On the first day of Christmas my true love gave to me, a Partridge in a Pear Tree.
-
-On the second day of Christmas my true love gave to me, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the third day of Christmas my true love gave to me, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the fourth day of Christmas my true love gave to me, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the fifth day of Christmas my true love gave to me, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the sixth day of Christmas my true love gave to me, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the seventh day of Christmas my true love gave to me, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the eighth day of Christmas my true love gave to me, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the ninth day of Christmas my true love gave to me, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the tenth day of Christmas my true love gave to me, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the eleventh day of Christmas my true love gave to me, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-On the twelfth day of Christmas my true love gave to me, twelve Drummers Drumming, eleven Pipers Piping, ten Lords-a-Leaping, nine Ladies Dancing, eight Maids-a-Milking, seven Swans-a-Swimming, six Geese-a-Laying, five Gold Rings, four Calling Birds, three French Hens, two Turtle Doves, and a Partridge in a Pear Tree.
-
-"""
- |> String.split(~r/\n\n?/)
- |> Enum.take(12)
- |> Enum.with_index
- |> Enum.into(%{}, fn {v, k} -> {k, v} end)
+  @verses [
+    {"first", "and a Partridge in a Pear Tree"},
+    {"second", "two Turtle Doves"},
+    {"third", "three French Hens"},
+    {"fourth", "four Calling Birds"},
+    {"fifth", "five Gold Rings"},
+    {"sixth", "six Geese-a-Laying"},
+    {"seventh", "seven Swans-a-Swimming"},
+    {"eigth", "eight Maids-a-Milking"},
+    {"ninth", "nine Ladies Dancing"},
+    {"tenth", "ten Lords-a-Leaping"},
+    {"eleventh", "eleven Pipers Piping"},
+    {"twelfth", "twelve Drummers Drumming"}
+  ]
 
   @spec verse(number :: integer) :: String.t()
-  def verse(number), do: @verses[number - 1]
+  def verse(number) when number == 1, do: "On the first day of Christmas my true love gave to me, a Partridge in a Pear Tree."
+  def verse(number) do
+    slice = @verses |> Enum.slice(0..number-1) |> Enum.reverse()
+    [{num, _} | _] = slice
+    prefix = "On the #{num} day of Christmas my true love gave to me, "
+
+    child_verses = slice
+    |> Enum.map(&elem(&1, 1))
+    |> Enum.join(", ")
+
+    prefix <> child_verses <> "."
+  end
 
   @doc """
   Given a `starting_verse` and an `ending_verse`, return the verses for each
