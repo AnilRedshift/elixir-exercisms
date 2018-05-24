@@ -60,12 +60,10 @@ defmodule BobTest do
     assert Bob.hey("1, 2, 3") == "Whatever."
   end
 
-  @tag :pending
   test "question with numbers" do
     assert Bob.hey("4?") == "Sure."
   end
 
-  @tag :pending
   test "shouting in Russian" do
     assert Bob.hey("УХОДИ") == "Whoa, chill out!"
   end
