@@ -11,8 +11,8 @@ defmodule Bob do
   def hey(input) do
     cond do
       String.match?(input, ~r/^\s*$/) -> @responses.silence
-      String.match?(input, ~r/^[^a-z]+\?$/) -> @responses.shouting_question
-      String.match?(input, ~r/^[^a-z]+$/) -> @responses.shouting
+      String.match?(input, ~r/^[^a-z]*[A-Z][^a-z]*\?$/) -> @responses.shouting_question
+      String.match?(input, ~r/^[^a-z]*[A-Z][^a-z]*$/) -> @responses.shouting
       String.ends_with?(input, "?") -> @responses.question
       true -> @responses.default
     end
