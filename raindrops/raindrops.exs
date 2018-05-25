@@ -9,6 +9,14 @@ defmodule Raindrops do
     just pass the number's digits straight through.
   """
   @spec convert(pos_integer) :: String.t()
+  def convert(number) do
+    [{3, "Pling"}, {5, "Plang"}, {7, "Plong"}]
+    |> Enum.map(fn {d, o} -> if rem(number, d) == 0, do: o, else: "" end)
+    |> Enum.join("")
+    |> (fn(x) -> if x == "", do: Integer.to_string(number), else: x end).()
+  end
+
+  # Or you could do the easy way :-)
   def convert(number) when rem(number, 105) == 0, do: "PlingPlangPlong"
   def convert(number) when rem(number, 15) == 0, do: "PlingPlang"
   def convert(number) when rem(number, 21) == 0, do: "PlingPlong"
