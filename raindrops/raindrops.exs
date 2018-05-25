@@ -9,6 +9,5 @@ defmodule Raindrops do
     just pass the number's digits straight through.
   """
   @spec convert(pos_integer) :: String.t()
-  def convert(number) do
-  end
+  def convert(number), do: Integer.to_string(number)
 end
