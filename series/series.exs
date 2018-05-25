@@ -8,6 +8,7 @@ defmodule StringSeries do
   def slices(s, size) do
     String.to_charlist(s)
     |>  Enum.chunk_every(size, 1)
+    |> Enum.filter(&(Enum.count(&1) == size))
     |> Enum.map(&to_string/1)
   end
 end
