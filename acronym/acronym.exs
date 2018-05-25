@@ -8,6 +8,10 @@ defmodule Acronym do
     {"Complementary Metal-Oxide semiconductor", "CMOS"}
   ]
 
+
+  # Extra work to only do one regex pass instead of K acronyms
+  # This produces a string like this: ^(portable networks graphic)|(ruby on rails)|...$
+  # along with a group name to match
   @re_str @acronyms
   |> Enum.unzip
   |> elem(0)
