@@ -32,7 +32,8 @@ defmodule Acronym do
   """
   @spec abbreviate(String.t()) :: String.t()
   def abbreviate(string) do
-    match = Regex.named_captures(@re, string)
+    filtered_string = string |> String.downcase() |> String.replace(~r/[^a-z ]/, "")
+    match = Regex.named_captures(@re, filtered_string)
     |> Map.to_list
     |> Enum.find(fn {_,v} -> v != "" end)
 
