@@ -5,6 +5,7 @@ defmodule StringSeries do
   return an empty list.
   """
   @spec slices(s :: String.t(), size :: integer) :: list(String.t())
+  def slices(s, size) when size < 1, do: []
   def slices(s, size) do
     String.to_charlist(s)
     |>  Enum.chunk_every(size, 1)

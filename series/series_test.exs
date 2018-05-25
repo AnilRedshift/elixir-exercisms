@@ -38,7 +38,6 @@ defmodule StringSeriesTest do
     assert StringSeries.slices("01234", 6) == []
   end
 
-  @tag :pending
   test "slices with size zero or negative return empty list" do
     assert StringSeries.slices("01234", -1) == []
     assert StringSeries.slices("01234", 0) == []
