@@ -17,32 +17,26 @@ defmodule RaindropsTest do
     assert Raindrops.convert(3) == "Pling"
   end
 
-  @tag :pending
   test "5" do
     assert Raindrops.convert(5) == "Plang"
   end
 
-  @tag :pending
   test "7" do
     assert Raindrops.convert(7) == "Plong"
   end
 
-  @tag :pending
   test "6" do
     assert Raindrops.convert(6) == "Pling"
   end
 
-  @tag :pending
   test "9" do
     assert Raindrops.convert(9) == "Pling"
   end
 
-  @tag :pending
   test "10" do
     assert Raindrops.convert(10) == "Plang"
   end
 
-  @tag :pending
   test "14" do
     assert Raindrops.convert(14) == "Plong"
   end
