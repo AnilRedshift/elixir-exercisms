@@ -8,7 +8,7 @@ defmodule RunLengthEncoder do
   """
   @spec encode(String.t()) :: String.t()
   def encode(string) do
-    String.to_charlist(string)
+    String.graphemes(string)
     |> Enum.chunk_while([], &chunk/2, &last/1)
     |> Enum.map(fn
       [char] -> to_string([char])
