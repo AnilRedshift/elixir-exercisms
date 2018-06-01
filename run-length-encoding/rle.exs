@@ -10,20 +10,20 @@ defmodule RunLengthEncoder do
   def encode(string) do
     String.graphemes(string)
     |> Enum.chunk_by(&(&1))
-    |> Enum.map(fn
+    |> map_join(fn
       [char] -> to_string([char])
       [char | _] = chars -> "#{Enum.count(chars)}#{to_string([char])}"
     end)
-    |> Enum.join()
   end
 
   @spec decode(String.t()) :: String.t()
   def decode(string) do
     Regex.scan(~r/(\d+)(\D)|\D/, string)
-    |> Enum.map(fn
+    |> map_join(fn
       [letter] -> letter
       [_, count, letter] -> String.duplicate(letter, String.to_integer(count))
     end)
-    |> Enum.join()
   end
+
+  defp map_join(list, fun), do: Enum.map(list, fun) |> Enum.join()
 end
