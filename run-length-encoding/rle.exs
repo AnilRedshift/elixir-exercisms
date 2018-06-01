@@ -19,6 +19,11 @@ defmodule RunLengthEncoder do
 
   @spec decode(String.t()) :: String.t()
   def decode(string) do
+    Regex.scan(~r/(\d+)(\D)|\D/, string)
+    |> Enum.map(fn
+      [_, count, letter] -> String.duplicate(letter, String.to_integer(count))
+    end)
+    |> Enum.join()
   end
 
   defp chunk(cur, [prev | _] = acc) when cur == prev, do: {:cont, [cur | acc]}

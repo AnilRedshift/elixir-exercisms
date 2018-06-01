@@ -43,7 +43,6 @@ defmodule RunLengthEncoderTest do
     assert RunLengthEncoder.decode("XYZ") === "XYZ"
   end
 
-  @tag :pending
   test "decode string with no single characters" do
     assert RunLengthEncoder.decode("2A3B4C") == "AABBBCCCC"
   end
