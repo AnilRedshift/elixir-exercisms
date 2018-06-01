@@ -21,6 +21,7 @@ defmodule RunLengthEncoder do
   def decode(string) do
     Regex.scan(~r/(\d+)(\D)|\D/, string)
     |> Enum.map(fn
+      [letter] -> letter
       [_, count, letter] -> String.duplicate(letter, String.to_integer(count))
     end)
     |> Enum.join()
