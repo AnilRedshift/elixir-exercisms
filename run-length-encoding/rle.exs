@@ -8,9 +8,23 @@ defmodule RunLengthEncoder do
   """
   @spec encode(String.t()) :: String.t()
   def encode(string) do
+    String.to_charlist(string)
+    |> Enum.chunk_while([], &chunk/2, &last/1)
+    |> Enum.map(fn
+      [char] -> to_string([char])
+      [char | _] = chars -> "#{Enum.count(chars)}#{to_string([char])}"
+    end)
+    |> Enum.join()
   end
 
   @spec decode(String.t()) :: String.t()
   def decode(string) do
   end
+
+  defp chunk(cur, [prev | _] = acc) when cur == prev, do: {:cont, [cur | acc]}
+  defp chunk(cur, []), do: {:cont, [cur]}
+  defp chunk(cur, acc), do: {:cont, acc, [cur]}
+
+  defp last(acc) when acc == [], do: {:cont, acc}
+  defp last(acc), do: {:cont, acc, []}
 end
