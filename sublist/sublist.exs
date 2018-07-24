@@ -18,7 +18,7 @@ defmodule Sublist do
     |> Task.async_stream(fn
       chunk when chunk === a -> true
       _ -> false
-    end)
+    end, ordered: false)
     |> Stream.map(fn {:ok, val} -> val end)
     |> Enum.any?()
   end
