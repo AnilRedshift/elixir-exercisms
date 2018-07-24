@@ -4,5 +4,11 @@ defmodule SumOfMultiples do
   """
   @spec to(non_neg_integer, [non_neg_integer]) :: non_neg_integer
   def to(limit, factors) do
+    Enum.reduce(factors, MapSet.new(), fn factor, set ->
+      Stream.iterate(0, &(&1 + factor))
+      |> Stream.take_while(&(&1 < limit))
+      |> Enum.reduce(set, fn num, set -> MapSet.put(set, num) end)
+    end)
+    |> Enum.sum()
   end
 end
