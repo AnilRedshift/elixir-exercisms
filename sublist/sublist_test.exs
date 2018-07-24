@@ -12,7 +12,6 @@ defmodule SublistTest do
     assert Sublist.compare([], []) == :equal
   end
 
-  @tag :pending
   test "empty is a sublist of anything" do
     assert Sublist.compare([], [nil]) == :sublist
   end
