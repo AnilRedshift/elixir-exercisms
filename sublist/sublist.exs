@@ -14,11 +14,12 @@ defmodule Sublist do
 
   defp sublist?([], _), do: true
   defp sublist?(a, b) do
-    Enum.chunk_every(b, Enum.count(a), 1)
-    |> Enum.map(fn
-      b1 when b1 === a -> true
+    Stream.chunk_every(b, Enum.count(a), 1)
+    |> Task.async_stream(fn
+      chunk when chunk === a -> true
       _ -> false
     end)
+    |> Stream.map(fn {:ok, val} -> val end)
     |> Enum.any?()
   end
 end
