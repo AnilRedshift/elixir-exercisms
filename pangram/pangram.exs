@@ -14,5 +14,14 @@ defmodule Pangram do
 
   @spec pangram?(String.t()) :: boolean
   def pangram?(sentence) do
+    String.downcase(sentence)
+    |> String.replace(~r/[^a-zA-Z]/, "")
+    |> String.to_charlist()
+    |> Enum.reduce(MapSet.new(), &MapSet.put(&2, &1))
+    |> MapSet.size()
+    |> case do
+      26 -> true
+      _ -> false
+    end
   end
 end
