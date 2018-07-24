@@ -5,13 +5,20 @@ defmodule Sublist do
   """
   def compare(a, b) when a == b, do: :equal
   def compare(a, b) do
-    case sublist?(a, b) do
-      true -> :sublist
-      false -> :superlist
+    cond do
+      sublist?(a, b) -> :sublist
+      sublist?(b, a) -> :superlist
+      true -> :unequal
     end
   end
 
+  defp sublist?([], _), do: true
   defp sublist?(a, b) do
-    true
+    Enum.chunk_every(b, Enum.count(a), 1)
+    |> Enum.map(fn
+      b1 when b1 === a -> true
+      _ -> false
+    end)
+    |> Enum.any?()
   end
 end
