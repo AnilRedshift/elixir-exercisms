@@ -15,10 +15,7 @@ defmodule Sublist do
   defp sublist?([], _), do: true
   defp sublist?(a, b) do
     Stream.chunk_every(b, Enum.count(a), 1)
-    |> Task.async_stream(fn
-      chunk when chunk === a -> true
-      _ -> false
-    end, ordered: false)
+    |> Task.async_stream(&(&1 === a), ordered: false)
     |> Stream.map(fn {:ok, val} -> val end)
     |> Enum.any?()
   end
