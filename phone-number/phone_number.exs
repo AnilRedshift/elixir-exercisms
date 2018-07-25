@@ -26,7 +26,7 @@ defmodule Phone do
   def number(raw) do
     stripped = String.replace(raw, ~r/[\(\)\.\+\- ]/, "")
     case Regex.run(~r/^1?([2-9]\d{2}[2-9]\d{6})$/, stripped) do
-      [match, number] -> number
+      [_match, number] -> number
       _ -> "0000000000"
     end
   end
@@ -53,8 +53,8 @@ defmodule Phone do
   """
   @spec area_code(String.t()) :: String.t()
   def area_code(raw) do
-    <<header :: binary-size(3), _rest::binary >> = number(raw)
-    header
+    <<area :: binary-size(3), _rest::binary >> = number(raw)
+    area
   end
 
   @doc """
@@ -79,5 +79,7 @@ defmodule Phone do
   """
   @spec pretty(String.t()) :: String.t()
   def pretty(raw) do
+    <<area::binary-size(3), exchange::binary-size(3), subscriber::binary-size(4)>> = number(raw)
+    "(#{area}) #{exchange}-#{subscriber}"
   end
 end
