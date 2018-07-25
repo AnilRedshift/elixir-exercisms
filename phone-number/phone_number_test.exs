@@ -41,22 +41,18 @@ defmodule PhoneTest do
     assert Phone.number("2a1a2a5a5a") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when area code begins with 1" do
     assert Phone.number("1125550100") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when area code begins with 0" do
     assert Phone.number("0125550100") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when exchange code begins with 1" do
     assert Phone.number("2121550100") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when exchange code begins with 0" do
     assert Phone.number("2120550100") == "0000000000"
   end
