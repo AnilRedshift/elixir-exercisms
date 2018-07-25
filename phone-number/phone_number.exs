@@ -53,6 +53,8 @@ defmodule Phone do
   """
   @spec area_code(String.t()) :: String.t()
   def area_code(raw) do
+    <<header :: binary-size(3), _rest::binary >> = number(raw)
+    header
   end
 
   @doc """
