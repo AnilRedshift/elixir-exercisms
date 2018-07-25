@@ -4,10 +4,12 @@ defmodule Sublist do
   and if not whether it is equal or unequal to the second list.
   """
   def compare(a, b) do
+    a_count = Enum.count(a)
+    b_count = Enum.count(b)
     cond do
-      a === b -> :equal
-      sublist?(a, b) -> :sublist
-      sublist?(b, a) -> :superlist
+      a_count == b_count and a === b -> :equal
+      a_count < b_count and sublist?(a, b) -> :sublist
+      a_count > b_count and sublist?(b, a) -> :superlist
       true -> :unequal
     end
   end
