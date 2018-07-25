@@ -35,8 +35,7 @@ defmodule BracketPush do
       false -> false
     end
   end
-  defp valid?([close_token | _tokens], _state) when close_token in @close_brackets, do: false
+  defp valid?([close_token | _tokens], []) when close_token in @close_brackets, do: false
   defp valid?([_token | tokens], state), do: valid?(tokens, state)
-  defp valid?([], []), do: true
-  defp valid?([], _state), do: false
+  defp valid?([], state), do: state == []
 end
