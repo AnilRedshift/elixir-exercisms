@@ -11,7 +11,7 @@ defmodule Prime do
     composites = Enum.map(primes, &get_composites(&1, floor, ceiling))
     |> Enum.reduce(MapSet.new(), &MapSet.union/2)
     case get_next_prime(composites, floor, ceiling) do
-      nil -> do_nth(count, floor: ceiling, ceiling: ceiling + 1000, primes: primes)
+      nil -> do_nth(count, floor: ceiling, ceiling: ceiling + 100, primes: primes)
       prime -> do_nth(count, floor: prime + 1, ceiling: ceiling, primes: [prime | primes])
     end
   end
