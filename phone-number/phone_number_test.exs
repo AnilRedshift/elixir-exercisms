@@ -12,12 +12,10 @@ defmodule PhoneTest do
     assert Phone.number("(212) 555-0100") == "2125550100"
   end
 
-  @tag :pending
   test "cleans number with dots" do
     assert Phone.number("212.555.0100") == "2125550100"
   end
 
-  @tag :pending
   test "valid when 11 digits and first is 1" do
     assert Phone.number("12125550100") == "2125550100"
   end
@@ -27,22 +25,18 @@ defmodule PhoneTest do
     assert Phone.number("+1 (212) 555-0100") == "2125550100"
   end
 
-  @tag :pending
   test "invalid when country calling code is not 1" do
     assert Phone.number("22125550100") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when 9 digits" do
     assert Phone.number("212555010") == "0000000000"
   end
 
-  @tag :pending
   test "invalid when proper number of digits but letters mixed in" do
     assert Phone.number("2a1a2a5a5a5a0a1a0a0a") == "0000000000"
   end
 
-  @tag :pending
   test "invalid with correct number of characters but some are letters" do
     assert Phone.number("2a1a2a5a5a") == "0000000000"
   end

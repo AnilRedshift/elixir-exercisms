@@ -24,6 +24,11 @@ defmodule Phone do
   """
   @spec number(String.t()) :: String.t()
   def number(raw) do
+    stripped = String.replace(raw, ~r/[\(\)\.\+\- ]/, "")
+    case Regex.run(~r/^1?(\d{10})$/, stripped) do
+      [match, number] -> number
+      _ -> "0000000000"
+    end
   end
 
   @doc """
