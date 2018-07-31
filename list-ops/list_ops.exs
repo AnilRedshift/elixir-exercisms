@@ -7,31 +7,48 @@ defmodule ListOps do
   # automatically imported) and so shouldn't be used either.
 
   @spec count(list) :: non_neg_integer
-  def count(l) do
-  end
+  def count(l), do: count(l, 0)
+  def count([], sum), do: sum
+  def count([_item | rest], sum), do: count(rest, sum + 1)
 
   @spec reverse(list) :: list
-  def reverse(l) do
+  def reverse([]), do: []
+  def reverse([item | rest]) do
+    reverse(rest)
+    |> append([item])
   end
 
   @spec map(list, (any -> any)) :: list
-  def map(l, f) do
-  end
+  def map([], _f), do: []
+  def map([first | rest], f), do: [f.(first) | map(rest, f)]
 
   @spec filter(list, (any -> as_boolean(term))) :: list
-  def filter(l, f) do
+  def filter(l, f), do: filter(l, f, []) |> reverse()
+  def filter([], _f, res), do: res
+  def filter([first | rest], f, res) do
+    res = case !!f.(first) do
+      true -> [first | res]
+      false -> res
+    end
+    filter(rest, f, res)
   end
 
   @type acc :: any
   @spec reduce(list, acc, (any, acc -> acc)) :: acc
-  def reduce(l, acc, f) do
+  def reduce([], acc, _f), do: acc
+  def reduce([first | rest], acc, f) do
+    acc = f.(first, acc)
+    reduce(rest, acc, f)
   end
 
   @spec append(list, list) :: list
-  def append(a, b) do
+  def append([], b), do: b
+  def append([first | rest], b) do
+    [first | append(rest, b)]
   end
 
   @spec concat([[any]]) :: [any]
   def concat(ll) do
+    reduce(ll, [], &append(&2, &1))
   end
 end
