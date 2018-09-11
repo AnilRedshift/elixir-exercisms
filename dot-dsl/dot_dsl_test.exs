@@ -21,7 +21,6 @@ defmodule DotTest do
     end
   end
 
-  # @tag :pending
   test "empty graph" do
     assert %Graph{} ==
              exprt(
@@ -30,7 +29,7 @@ defmodule DotTest do
              )
   end
 
-  @tag :pending
+  #@tag :pending
   test "graph with one node" do
     assert %Graph{nodes: [{:a, []}]} ==
              exprt(
